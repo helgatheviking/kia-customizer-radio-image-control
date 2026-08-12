@@ -1,6 +1,6 @@
 {
   "name": "kia-customizer-radio-image-control",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "WordPress Customizer Radio Image Control",
   "main": "index.js",
   "scripts": {

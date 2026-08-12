@@ -2,7 +2,7 @@
 /**
  * Customizer Radio Image Control.
  *
- * @version 1.0.1
+ * @version 1.0.2
  * @package Kia_Customizer_Radio_Image_Control
  */
 
