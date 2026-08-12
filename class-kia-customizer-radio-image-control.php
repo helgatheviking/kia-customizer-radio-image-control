@@ -1,11 +1,9 @@
 <?php
 /**
- * Customizer Range Control
+ * Customizer Radio Image Control.
  *
- * @version 1.0.0
- * @author Kathy Darling
- * @license GPL-3.0
- *
+ * @version 1.0.1
+ * @package Kia_Customizer_Radio_Image_Control
  */
 
 // Exit if accessed directly.
@@ -18,9 +16,23 @@ if ( ! class_exists( 'WP_Customize_Control' ) ) {
 	return null;
 }
 
+/**
+ * KIA_Customizer_Radio_Image_Control class.
+ */
 class KIA_Customizer_Radio_Image_Control extends \WP_Customize_Control {
+
+	/**
+	 * Control type.
+	 *
+	 * @var string
+	 */
 	public $type = 'kia-radio-image';
 
+	/**
+	 * Control version.
+	 *
+	 * @var string
+	 */
 	private $version = '1.0.1';
 
 	/**
@@ -28,8 +40,8 @@ class KIA_Customizer_Radio_Image_Control extends \WP_Customize_Control {
 	 */
 	public function enqueue() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		wp_enqueue_script( 'kia-customizer-radio-image-control', $this->abs_path_to_url( dirname( __FILE__ ) . '/js/script' . $suffix . '.js' ), array( 'jquery' ), $this->version, true );
-		wp_enqueue_style( 'kia-customizer-radio-image-control', $this->abs_path_to_url( dirname( __FILE__ ) . '/css/style.css' ), array(), $this->version );
+		wp_enqueue_script( 'kia-customizer-radio-image-control', $this->abs_path_to_url( __DIR__ . '/js/script' . $suffix . '.js' ), array( 'jquery' ), $this->version, true );
+		wp_enqueue_style( 'kia-customizer-radio-image-control', $this->abs_path_to_url( __DIR__ . '/css/style.css' ), array(), $this->version );
 	}
 
 	/**
@@ -52,7 +64,8 @@ class KIA_Customizer_Radio_Image_Control extends \WP_Customize_Control {
 	/**
 	 * Underscore JS template to handle the control's output.
 	 */
-	public function content_template() { ?>
+	public function content_template() {
+		?>
 
 		<# if ( ! data.choices ) {
 			return;
@@ -92,27 +105,27 @@ class KIA_Customizer_Radio_Image_Control extends \WP_Customize_Control {
 	/**
 	 * Sanitize the image radios.
 	 *
-	 * @param string $value
-	 * @param Wp_Customizer_Setting
+	 * @param string                 $value   Setting value.
+	 * @param \WP_Customize_Setting  $setting Setting instance.
 	 * @return string
 	 */
 	public static function sanitize( $value, $setting ) {
-		// Input must be a slug: lowercase alphanumeric characters, dashes and underscores are allowed only
+		// Input must be a slug: lowercase alphanumeric characters, dashes and underscores are allowed only.
 		$value = sanitize_key( $value );
 
-		// Get the list of possible radio box options
+		// Get the list of possible radio box options.
 		$choices = $setting->manager->get_control( $setting->id )->choices;
 
-		// Return value if valid or return default option
+		// Return value if valid or return default option.
 		return ( array_key_exists( $value, $choices ) ? $value : $setting->default );
 	}
 
 	/**
-	 * Plugin / theme agnostic path to URL
+	 * Plugin / theme agnostic path to URL.
 	 *
 	 * @see https://wordpress.stackexchange.com/a/264870/14546
-	 * @param string $path  file path
-	 * @return string       URL
+	 * @param string $path File path.
+	 * @return string      URL.
 	 */
 	private function abs_path_to_url( $path = '' ) {
 		$url = str_replace(
@@ -122,5 +135,4 @@ class KIA_Customizer_Radio_Image_Control extends \WP_Customize_Control {
 		);
 		return esc_url_raw( $url );
 	}
-
 }
