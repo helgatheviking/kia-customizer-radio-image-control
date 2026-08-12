@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // Colors.
 $white: #fff;
 $customizer_blue: #007cba;
@@ -45,6 +47,6 @@ $gray: #c2c2c2;
 
     label:hover,
     label:focus {
-        background: lighten( $gray, 10 );
+        background: color.adjust( $gray, $lightness: 10% );
     }
 }
